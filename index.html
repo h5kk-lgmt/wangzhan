@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时尚鞋包商城</title>
+   <link href="css/css-01.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="navbar">
+        <div class="logo">时尚鞋包</div>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#">鞋子</a>
+            <a href="#">包包</a>
+            <a href="#">我的</a>
+        </div>
+    </div>
+    
+    <!-- 商品列表页 -->
+    <div id="product-list-page">
+        <!-- 搜索栏 -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="搜索鞋包...">
+                <button id="searchButton">搜索</button>
+            </div>
+        </div>
+        
+        <!-- 分类标签 -->
+        <div class="category-tabs">
+            <div class="tab active">全部</div>
+            <div class="tab">鞋子</div>
+            <div class="tab">包包</div>
+            <div class="tab">新品</div>
+            
+        </div>
+        
+        <!-- 商品列表 -->
+        <div class="product-list" id="productList">
+            <!-- 商品将通过JavaScript动态生成 -->
+        </div>
+    </div>
+    
+    <!-- 商品详情页 -->
+    <div id="product-detail-page" class="product-detail">
+        <!-- 内容将通过JavaScript动态生成 -->
+    </div>
+
+    <script>
+        // 商品数据
+        const products = [
+            // 原有商品数据...
+            {
+                id: 1,
+                category: "鞋子",
+                title: "ZARA夏季爆款凉鞋 多色可选",
+                desc: "多种颜色可选 35-42码",
+                price: "¥89",
+                originalPrice: "￥94",
+                tag: "新品",
+				
+                specs: [
+                    "材质: 合成革",
+                    
+                    "跟高: 高跟",
+                    "尺码: 35-42",
+                    "颜色: 黑/白"
+                ],
+                date: "2025年7月2日上架",
+                images: [
+                    "img/微信图片_20250715110920.jpg",
+                    "img/微信图片_20250715123733.jpg",
+					"img/微信图片_20250715123744.jpg",
+					"img/微信图片_20250715123751.jpg"
+                ]
+            },
+            {
+                id: 2,
+                category: "包包",
+                title: "棱格手提包",
+                desc: "经典",
+                price: "¥149",
+                originalPrice: "¥168",
+                tag: "包包",
+                specs: [
+                    "材质: 皮革",
+                    
+                    "颜色: 黑色/浅蓝/白色",
+                    
+                    
+                ],
+                date: "2025年6月15日上架",
+                images: [
+                    "img/微信图片_20250715221556.jpg",
+                    "img/微信图片_20250715221546.jpg",
+					"img/微信图片_20250715221406.jpg",
+					"img/微信图片_20250715221401.jpg"
+                ]
+            },
+            
+            /* 新增YSL凉鞋商品 - 开始 */
+            {
+                id: 3,
+                category: "鞋子",
+                title: "YSL字母跟凉鞋 巴黎时装周新款",
+                desc: "25SS 字母跟凉鞋/YSL 高跟/ysL 美鞋\n巴黎时装周新款 T 台走秀款\n小红书抢先登录 时尚 YsL",
+                price: "¥189",
+                
+                tag: "爆款",
+                specs: [
+                    "原版开模 代购版本",
+                    "进口超过皮 垫脚羊皮",
+                    "跟高: 8.0/10.0Cm 可选",
+                    "全套专柜包装",
+                    "尺码: 35-41"
+                ],
+                date: "2025年5月29日上架",
+                /* 商品图片数组 - 可添加多张图片 */
+                images: [
+                    "img/微信图片_20250725153418.jpg",
+                    
+                ]
+            },
+            /* 新增YSL凉鞋商品 - 结束 */
+            
+            {
+                id: 4,
+                category: "包包",
+                title: "CHANEL香奈儿",
+                desc: "度假风、休闲感",
+                price: "￥199",
+                originalPrice: "¥208",
+                tag: "促销",
+                specs: [
+                    "材质: 草编原料",
+                    
+                ],
+                date: "2025年5月10日上架",
+                images: [
+                    "img/微信图片_20250725154124.jpg",
+                    "img/微信图片_20250725154133.jpg",
+					"img/微信图片_20250725154137.jpg",
+					"img/微信图片_20250725154141.jpg",
+		
+                ]
+            },
+			
+			
+
+{
+    id: 5,
+    category: "包包", // 必须与分类标签匹配
+    title: "CHANEL香奈儿",
+    desc: "优雅精致、时尚实用兼存",
+    price: "¥199",
+    originalPrice: "¥208",
+    tag: "新品", // 可选标签
+    specs: [
+			"材质：皮革",
+			"颜色：粉色/米色/白色"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/bag-01.jpg",
+        "img/bag-02.jpg",
+		"img/bag-03.jpg",
+		"img/bag-04.jpg",
+		
+    ]
+},
+
+{
+    id: 6, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "Nike Air Force耐克空军一号",
+    desc: "经典复古风格、简约百搭、休闲运动鞋",
+    price: "¥99",
+    originalPrice: "¥114",
+    tag: "新品", // 可选标签
+    specs: [
+			
+			"颜色：白色",
+			"尺码：36-44"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-01.jpg",
+        "img/shose-02.jpg",
+		"img/shose-03.jpg",
+		"img/shose-04.jpg",
+		
+    ]
+},
+{
+id: 7, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "Nike Air Force耐克空军一号",
+    desc: "款式多多、休闲感",
+    price: "¥99",
+    originalPrice: "¥114",
+    tag: "新品", // 可选标签
+    specs: [
+			
+			"颜色：白色",
+			"尺码：36-44"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-05.jpg",
+        "img/shose-06.jpg",
+		"img/shose-07.jpg",
+		"img/shose-08.jpg",
+		"img/shose-09.jpg",
+        "img/shose-10.jpg",
+		"img/shose-11.jpg",
+		"img/shose-12.jpg",
+		"img/shose-13.jpg",
+        "img/shose-14.jpg",
+		"img/shose-15.jpg",
+		"img/shose-16.jpg",
+		"img/shose-17.jpg",
+        "img/shose-18.jpg",
+		"img/shose-19.jpg",
+		"img/shose-20.jpg",
+		
+		
+		
+    ]
+},
+{
+ id: 8, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "草莓熊德训鞋",
+    desc: "复古潮流、日常穿搭适配度高",
+    price: "¥99",
+    originalPrice: "¥114",
+    tag: "新品", // 可选标签
+    specs: [
+			
+			"颜色：鞋面为粉色",
+			"尺码：36-44"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-21.jpg",
+        "img/shose-22.jpg",
+		
+		
+    ]
+},
+{
+id: 9, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "ZARA双搭口高跟凉鞋",
+    desc: "露趾款式、简约时尚",
+    price: "¥89",
+    originalPrice: "¥104",
+    tag: "新品", // 可选标签
+    specs: [
+			"材质：皮革",
+			"颜色：银色/黑色",
+			"尺码：35-42"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-23.jpg",
+        "img/shose-24.jpg",
+		"img/shose-25.jpg",
+		"img/shose-26.jpg",
+		"img/shose-27.jpg",
+        "img/shose-28.jpg",
+		
+    ]
+},
+{
+id: 10, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "ZARA双搭口高跟凉鞋",
+    desc: "露趾款式、简约时尚",
+    price: "¥89",
+    originalPrice: "¥104",
+    tag: "新品", // 可选标签
+    specs: [
+			"材质：皮革",
+			"颜色：",
+			"尺码：35-42"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-29.jpg",
+        "img/shose-30.jpg",
+		
+    ]
+},
+{
+id: 11, // 确保ID唯一
+    category: "鞋子", // 必须与分类标签匹配
+    title: "ZARA双搭口高跟凉鞋",
+    desc: "露趾款式、简约时尚",
+    price: "¥89",
+    originalPrice: "¥104",
+    tag: "新品", // 可选标签
+    specs: [
+			"材质：皮革",
+			"颜色：黑色",
+			"尺码：35-42"
+			
+        
+    ],
+    date: "2025年8月1日上架",
+    images: [ // 必须包含至少一张图片
+        "img/shose-31.jpg",
+        "img/shose-32.jpg",
+		
+		
+    ]
+},
+
+
+  ];
+
+        // 轮播图相关变量
+        let currentSlide = 0;
+        let currentProductId = null;
+
+        // 渲染商品列表
+        function renderProductList(filteredProducts = products) {
+            const container = document.getElementById('productList');
+            
+            if (filteredProducts.length === 0) {
+                container.innerHTML = '<div class="no-results">未找到相关商品</div>';
+                return;
+            }
+
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="showProductDetail(${product.id})">
+                    <div class="product-image">
+                        <img src="${product.images ? product.images[0] : 'https://via.placeholder.com/400x400?text=商品图片'}" alt="${product.title}">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">${product.price} <span class="product-original-price">${product.originalPrice}</span></div>
+                        ${product.tag ? `<div class="product-tag">${product.tag}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 显示商品详情
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const detailPage = document.getElementById('product-detail-page');
+            detailPage.innerHTML = `
+                <div class="detail-header">
+                    <button class="back-button" onclick="hideProductDetail()">←</button>
+                </div>
+                
+                <!-- 轮播图部分 -->
+                <div class="carousel">
+                    <div class="carousel-inner" id="carouselInner">
+                        ${product.images.map(img => `
+                            <div class="carousel-item">
+                                <img src="${img}" alt="${product.title}">
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+                    <button class="carousel-control next" onclick="nextSlide()">❯</button>
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        ${product.images.map((_, index) => `
+                            <div class="carousel-indicator ${index === 0 ? 'active' : ''}" 
+                                 onclick="goToSlide(${index})"></div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-title">${product.title}</div>
+                <div class="detail-price">${product.price} <span style="color:#999;text-decoration:line-through;font-size:16px;">${product.originalPrice}</span></div>
+                ${product.tag ? `<div class="product-tag">${product.tag}</div>` : ''}
+                <div class="detail-desc">${product.desc}</div>
+                <ul class="detail-specs">
+                    ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
+                </ul>
+                <div style="color:#999;font-size:12px;">${product.date}</div>
+                <div class="action-buttons">
+                    <button class="add-to-cart">加入购物车</button>
+                    <button class="buy-now">立即购买</button>
+                </div>
+            `;
+
+            // 初始化轮播图状态
+            currentProductId = productId;
+            currentSlide = 0;
+            updateCarousel();
+            
+            document.getElementById('product-list-page').style.display = 'none';
+            detailPage.style.display = 'block';
+        }
+
+        // 更新轮播图位置
+        function updateCarousel() {
+            const carouselInner = document.getElementById('carouselInner');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            if (!carouselInner) return;
+            
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        // 下一张
+        function nextSlide() {
+            const product = products.find(p => p.id === currentProductId);
+            if (!product) return;
+            
+            currentSlide = (currentSlide + 1) % product.images.length;
+            updateCarousel();
+        }
+        
+        // 上一张
+        function prevSlide() {
+            const product = products.find(p => p.id === currentProductId);
+            if (!product) return;
+            
+            currentSlide = (currentSlide - 1 + product.images.length) % product.images.length;
+            updateCarousel();
+        }
+        
+        // 跳转到指定幻灯片
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // 隐藏商品详情
+        function hideProductDetail() {
+            document.getElementById('product-list-page').style.display = 'block';
+            document.getElementById('product-detail-page').style.display = 'none';
+        }
+
+        // 搜索功能
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const activeTab = document.querySelector('.tab.active').textContent;
+            
+            const filtered = products.filter(product => {
+                const matchesSearch = product.title.toLowerCase().includes(searchTerm) || 
+                                      product.desc.toLowerCase().includes(searchTerm);
+                const matchesCategory = activeTab === '全部' || product.category.includes(activeTab);
+                return matchesSearch && matchesCategory;
+            });
+            
+            renderProductList(filtered);
+        }
+
+        // 事件监听
+        document.getElementById('searchButton').addEventListener('click', performSearch);
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') performSearch();
+        });
+        
+        // 分类标签点击
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                performSearch();
+            });
+        });
+
+        // 初始化页面
+        renderProductList();
+    </script>
+</body>
+</html>
